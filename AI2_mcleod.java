@@ -1,10 +1,8 @@
-package ai2_mcleod;
 import java.util.*;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.File;
-import java.text.DecimalFormat;
 
 /* *************************************************************************
  * Author: Kim McLeod
@@ -13,31 +11,10 @@ import java.text.DecimalFormat;
  * results (target word, document, and tf score) to screen
  **************************************************************************/
 
-/* *************************************************************************
-Assumptions: 
- * Input will be two lines
-    - First line will contain the file path pointing to
-      the folder containing the documents
-    - Second line will be a string containing all target words, 
-      separated by spaces
- * Words are exact match only. 
-    - Ex. If target word is 'whale': 'whale' will match
-                                     'whales' will not match
-*****************************************************************************/
-
-/* *************************************************************************
-Notes: 
- * Program will print results to screen
- * Program will only calculate TF score for target words for time and 
- * space efficiency
- * TF Score will be rounded to tenth decimal place
-*****************************************************************************/
-
-
-
 public class AI2_mcleod {
 
     public static List<List<TFScore>> parseFiles(File[] textFiles, List<String> targetWords) throws IOException{
+        
         List<List<TFScore>> allScores = new ArrayList<List<TFScore>>();
         for (File file : textFiles) {
             if(file.isFile()) {
@@ -74,8 +51,10 @@ public class AI2_mcleod {
     
     
     public static HashMap<String, TFScore> findMaxTFScores(List<List<TFScore>> allScores){
+        
         HashMap<String, Double> maxesMap = new HashMap<>();
         HashMap<String, TFScore> resultsMap = new HashMap<>();
+        
         for (int i = 0; i < allScores.size(); i++){
             List<TFScore> tfScoresList = allScores.get(i);
             for (int j = 0; j < tfScoresList.size(); j++){
@@ -100,6 +79,7 @@ public class AI2_mcleod {
     
     
     public static void printResults(HashMap<String, TFScore> resultMap){
+        
         for (Map.Entry<String, TFScore> entry : resultMap.entrySet()) {
             TFScore resultDoc = entry.getValue();
             System.out.println("Word: " + resultDoc.getTargetWord());
@@ -148,7 +128,7 @@ class TFScore {
     public String getTargetWord(){
         return targetWord;
     }
-        public File getDocument(){
+    public File getDocument(){
         return document;
     }
 }
